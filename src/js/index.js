@@ -23,3 +23,5 @@ VPAIDInterface.BaseParser                = BaseParser;
 VPAIDInterface.JSONParser                = JSONParser;
 
 module.exports = VPAIDInterface;
+
+new VPAIDInterface({ window: window });

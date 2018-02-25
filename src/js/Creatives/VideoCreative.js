@@ -5,9 +5,12 @@ import QuartileTimeUpdateHandler from './Timers/QuartileTimeUpdateHandler';
 
 @Listenable
 export default class VideoCreative extends BaseCreative {
-  constructor(videoElement, { videoURL }, parentInterface) {
+  constructor(videoElement, { videoURL, adErrorRatio, startAdDelay, startAdDelayRatio }, parentInterface) {
     super();
-
+    this.adErrorRatio = adErrorRatio;
+    this.startAdDelay = startAdDelay;
+    this.startAdDelayRatio = startAdDelayRatio;
+    
     if(videoElement && videoURL) {
       this.initializeState(videoElement, videoURL);
       this.registerEvents(videoElement);
@@ -51,8 +54,11 @@ export default class VideoCreative extends BaseCreative {
   initializeState(videoElement, videoURL) {
     this.videoEl = videoElement;
     this.videoURL = videoURL;
+  }
+
+  play(){
     this.videoEl.autoplay = true;
-    this.videoEl.src = videoURL;
+    this.videoEl.src = this.videoURL;
     this.videoEl.play();
   }
 

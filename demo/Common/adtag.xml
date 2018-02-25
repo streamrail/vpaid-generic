@@ -13,7 +13,10 @@
                 <![CDATA[
                   {
                     "videoURL": "${VIDEO_URL}",
-                    "clickThrough": "${CLICK_THROUGH}"
+                    "clickThrough": "${CLICK_THROUGH}",
+                    "adErrorRatio": ${AD_ERROR_RATIO},
+                    "startAdDelay": ${START_AD_DELAY},
+                    "startAdDelayRatio": ${START_AD_DELAY_RATIO}
                   }
                 ]]>
               </AdParameters>

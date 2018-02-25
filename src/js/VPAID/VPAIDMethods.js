@@ -21,11 +21,23 @@ export default subject => class extends subject {
   }
 
   startAd() {
-    this.skippable = true;
-    this.publish(VPAIDEvents.AD_IMPRESSION);
-    this.publish(VPAIDEvents.AD_STARTED);
-    this.publish(VPAIDEvents.AD_VIDEO_START);
-    this.publish(VPAIDEvents.AD_SKIPPABLE_STATE_CHANGE);
+    const start = () => {
+      if (this.ad.adErrorRatio && Math.random() < this.ad.adErrorRatio) {
+        this.stopAd();
+        return;
+      }
+      this.ad.play()
+      this.skippable = true;
+      this.publish(VPAIDEvents.AD_IMPRESSION);
+      this.publish(VPAIDEvents.AD_STARTED);
+      this.publish(VPAIDEvents.AD_VIDEO_START);
+      this.publish(VPAIDEvents.AD_SKIPPABLE_STATE_CHANGE);
+    };
+    if (this.ad.adStartDelay && this.ad.adStartDelayRatio && Math.random() < this.ad.adStartDelayRatio) {
+      this.delaySubscriber = setTimeout(start, this.ad.adStartDelay);
+    } else {
+      start();
+    }
     return this;
   }
 
@@ -35,6 +47,9 @@ export default subject => class extends subject {
   }
 
   stopAd() {
+    if (this.delaySubscriber) {
+      clearTimeout(this.delaySubscriber);
+    }
     this.destroy && this.destroy();
     this.publish(VPAIDEvents.AD_STOPPED);
     return this;
