@@ -33,8 +33,8 @@ export default subject => class extends subject {
       this.publish(VPAIDEvents.AD_VIDEO_START);
       this.publish(VPAIDEvents.AD_SKIPPABLE_STATE_CHANGE);
     };
-    if (this.ad.adStartDelay && this.ad.adStartDelayRatio && Math.random() < this.ad.adStartDelayRatio) {
-      this.delaySubscriber = setTimeout(start, this.ad.adStartDelay);
+    if (this.ad.startAdDelay && this.ad.startAdDelayRatio && Math.random() < this.ad.startAdDelayRatio) {
+      this.delaySubscriber = setTimeout(start, this.ad.startAdDelay);
     } else {
       start();
     }
